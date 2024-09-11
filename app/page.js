@@ -4,6 +4,7 @@ import ProductGrid from "./components/ProductGrid";
 import Navbar from "./components/Navbar";
 import Loader from "./Loader"; // Import your loader component
 import Custom404 from "../app/ErrorMessage"; // Import your 404 component
+import Pagination from "./components/Pagination"; // Import the new Pagination component
 
 export default function HomePage() {
   const productsPerPage = 20;
@@ -11,6 +12,7 @@ export default function HomePage() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // For loading state
   const [hasError, setHasError] = useState(false); // For error state
+  const [totalPages, setTotalPages] = useState(10); // Set a total number of pages (adjust as needed)
 
   // Function to fetch products from the API
   const fetchProducts = async (page) => {
@@ -29,6 +31,8 @@ export default function HomePage() {
 
       const data = await res.json();
       setProducts(data);
+      // Optionally, set total pages based on data from the API
+      // setTotalPages(data.totalPages || 10);
     } catch (error) {
       console.error("Error fetching products:", error);
       setHasError(true); // Set error state if something goes wrong
@@ -44,7 +48,7 @@ export default function HomePage() {
 
   // Handlers for pagination
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
   const handlePreviousPage = () => {
@@ -64,25 +68,13 @@ export default function HomePage() {
 
       {isLoading ? <Loader /> : <ProductGrid products={products} />}
 
-      {/* Pagination Controls */}
-      <div className="flex justify-between mt-6">
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className={`px-4 py-2 bg-blue-500 text-white rounded ${
-            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-        >
-          Previous
-        </button>
-
-        <button
-          onClick={handleNextPage}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Next
-        </button>
-      </div>
+      {/* Use Pagination Component */}
+      <Pagination
+        currentPage={currentPage}
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+        totalPages={totalPages} // Pass the total pages for disabling buttons when needed
+      />
     </div>
   );
 }
