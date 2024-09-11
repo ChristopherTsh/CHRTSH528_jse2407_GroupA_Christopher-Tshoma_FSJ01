@@ -36,7 +36,7 @@ export default function Custom404() {
       </div>
 
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold text-yellow-400">Looks like you're lost</h1>
+        <h1 className="text-4xl font-bold text-yellow-400">Looks like you are lost</h1>
         <p className="text-xl font-light mt-4">404 error</p>
       </div>
 
