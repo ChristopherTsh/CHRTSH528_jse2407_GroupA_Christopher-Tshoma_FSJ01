@@ -10,8 +10,8 @@ export default function Pagination({
     <div className="flex justify-between items-center mt-6">
       <button
         onClick={handlePreviousPage}
-        disabled={currentPage === 1}
-        className={`px-4 py-2 bg-blue-500 text-white rounded ${
+        disabled={currentPage === 1} // Disable if on the first page
+        className={`min-w-[200px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black text-sm font-semibold rounded ${
           currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
@@ -25,7 +25,7 @@ export default function Pagination({
 
       <button
         onClick={handleNextPage}
-        className={`px-4 py-2 bg-blue-500 text-white rounded ${
+        className={`min-w-[200px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black text-sm font-semibold rounded ${
           currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
         }`}
         disabled={currentPage === totalPages} // Disable if on the last page
