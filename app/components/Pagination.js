@@ -7,7 +7,7 @@ export default function Pagination({
   totalPages,
 }) {
   return (
-    <div className="flex justify-between items-center mt-6">
+    <div className="flex justify-between items-center mt-6 p-6">
       <button
         onClick={handlePreviousPage}
         disabled={currentPage === 1} // Disable if on the first page

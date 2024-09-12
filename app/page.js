@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Loader from "./Loader"; // Import your loader component
 import Custom404 from "../app/ErrorMessage"; // Import your 404 component
 import Pagination from "./components/Pagination"; // Import the new Pagination component
+import Footer from "./components/Footer";
 
 export default function HomePage() {
   const productsPerPage = 20;
@@ -75,6 +76,8 @@ export default function HomePage() {
         handlePreviousPage={handlePreviousPage}
         totalPages={totalPages} // Pass the total pages for disabling buttons when needed
       />
+
+      <Footer />
     </div>
   );
 }
