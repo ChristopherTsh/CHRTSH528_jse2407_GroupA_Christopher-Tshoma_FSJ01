@@ -1,3 +1,16 @@
+/**
+ * Navbar component with a toggleable mobile menu, search bar, and links to
+ * Cart, Wishlist, and Profile pages. The component includes a hamburger menu
+ * for mobile view and a search bar for product searching.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <Navbar />
+ * )
+ *
+ * @returns {JSX.Element} The navigation bar with toggleable mobile menu, search bar, and links.
+ */
 "use client";
 
 import Link from "next/link";
@@ -6,6 +19,9 @@ import { useState } from "react";
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  /**
+   * Toggles the state of the mobile menu between open and closed.
+   */
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
