@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function ProductCard({ product, addToCart, addToWishlist }) {
+export default function ProductCard({ product }) {
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
       <img
@@ -13,9 +13,9 @@ export default function ProductCard({ product, addToCart, addToWishlist }) {
       <div className="flex space-x-2">
         {/* View Product */}
         <Link href={`/products/${product.id}`}>
-          <a className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          <span className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             View Product
-          </a>
+          </span>
         </Link>
 
         {/* Add to Cart */}

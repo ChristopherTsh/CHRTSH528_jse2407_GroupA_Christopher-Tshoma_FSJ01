@@ -1,20 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import ProductModal from './ProductModal.js'; // Import the modal component
 
 export default function ProductGrid({ products }) {
   const fallbackImage = 'https://via.placeholder.com/150'; // Fallback image in case an image fails to load
-
-  const [selectedProduct, setSelectedProduct] = useState(null); // State to track the selected product for modal
-
-  const openModal = (product) => {
-    setSelectedProduct(product);
-  };
-
-  const closeModal = () => {
-    setSelectedProduct(null);
-  };
 
   return (
     <div className="grid grid-cols-4 gap-4">
@@ -41,20 +31,15 @@ export default function ProductGrid({ products }) {
               </svg>
             </button>
 
-            {/* View Product Button */}
-            <button onClick={() => openModal(product)}>
+            {/* View Product Button (Now navigates to product page) */}
+            <Link href={`/products/${product.id}`}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 hover:text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.243-4.243a5.657 5.657 0 00-8-8L3 7l2.707 2.707a1 1 0 001.414 0l5.657-5.657L15 10zM21 21a5.657 5.657 0 01-8-8l5.657-5.657 8 8L21 21z" />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       ))}
-
-      {/* Product Modal */}
-      {selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={closeModal} />
-      )}
     </div>
   );
 }
