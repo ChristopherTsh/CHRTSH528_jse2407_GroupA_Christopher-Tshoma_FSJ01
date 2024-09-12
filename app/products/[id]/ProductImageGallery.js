@@ -3,28 +3,12 @@
 import { useState } from "react";
 
 export default function ProductDetail({ product }) {
-  const { images, thumbnail, title, price, discountPercentage, rating, category, stock, tags } = product;
+  const { images, thumbnail, title, price, discountPercentage, rating, category, stock, tags, reviews } = product;
   const [currentImage, setCurrentImage] = useState(images[0]);
 
   const handleError = (e) => {
     e.target.src = thumbnail; // Fallback image if loading fails
   };
-
-  // Dummy reviews for example (replace this with real data)
-  const reviews = [
-    {
-      name: "Jane Doe",
-      date: "2024-09-01",
-      comment: "Great product! The colors are vibrant and blend well.",
-      rating: 4,
-    },
-    {
-      name: "John Smith",
-      date: "2024-08-20",
-      comment: "Good value for the price, but the mirror could be bigger.",
-      rating: 3,
-    },
-  ];
 
   // Calculate the discounted price if there is a discount
   const discountedPrice = discountPercentage ? (price - (price * discountPercentage) / 100).toFixed(2) : price;
