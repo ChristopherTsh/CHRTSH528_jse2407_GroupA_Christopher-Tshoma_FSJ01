@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ProductImageGallery from "./ProductImageGallery";
+import ProductDetail from "./ProductImageGallery"; // Import ProductDetail component
 
 // Server component
 export default async function ProductPage({ params }) {
@@ -41,17 +41,8 @@ export default async function ProductPage({ params }) {
         </a>
       </Link>
 
-      {/* Product Information */}
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-        <p className="text-gray-600 mb-4">{product.description}</p>
-
-        {/* Product Image Gallery */}
-        <ProductImageGallery images={product.images} fallbackImage={product.thumbnail} />
-
-        <p className="text-xl font-semibold mt-6">Price: ${product.price}</p>
-        <p className="text-gray-600">Category: {product.category}</p>
-      </div>
+      {/* Pass product data to ProductDetail */}
+      <ProductDetail product={product} /> {/* Pass product as a prop */}
     </div>
   );
 }
