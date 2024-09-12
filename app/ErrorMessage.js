@@ -1,3 +1,16 @@
+/**
+ * Custom404 component displays a 404 error page with a playful animation
+ * and a button to switch between light and dark themes. It includes a
+ * "Back to home" link and a theme toggle button.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Custom404 />
+ * )
+ *
+ * @returns {JSX.Element} The Custom 404 error page with theme switcher and navigation link.
+ */
 import { useEffect } from 'react';
 
 export default function Custom404() {
@@ -5,6 +18,7 @@ export default function Custom404() {
     const colorSwitcher = document.querySelector("[data-theme-color-switch]");
     let currentTheme = "light";
 
+    // Toggle between light and dark themes on button click
     colorSwitcher.addEventListener("click", function () {
       const root = document.documentElement;
 
