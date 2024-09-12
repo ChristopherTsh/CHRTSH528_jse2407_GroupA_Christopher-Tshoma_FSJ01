@@ -1,7 +1,18 @@
 import Link from "next/link";
 import ProductDetail from "./ProductImageGallery"; // Import ProductDetail component
 
-// Server component
+/**
+ * ProductPage component fetches and displays the details of a specific product.
+ *
+ * This is a server-side component that fetches product data based on the provided `params.id`
+ * and handles errors in fetching the product. If the product data is successfully retrieved,
+ * it passes the data to the `ProductDetail` component for rendering.
+ *
+ * @param {Object} props - The component props
+ * @param {Object} props.params - The route parameters
+ * @param {string} props.params.id - The ID of the product to fetch
+ * @returns {JSX.Element} The ProductPage component
+ */
 export default async function ProductPage({ params }) {
   let product = null;
   let error = null;
