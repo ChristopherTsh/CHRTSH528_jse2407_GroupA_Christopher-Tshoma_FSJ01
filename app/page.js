@@ -7,15 +7,27 @@ import Custom404 from "../app/ErrorMessage"; // Import your 404 component
 import Pagination from "./components/Pagination"; // Import the new Pagination component
 import Footer from "./components/Footer";
 
+/**
+ * HomePage component renders the main page of the application.
+ *
+ * It handles fetching products from an API, managing loading and error states,
+ * and rendering the product grid, pagination controls, and other components.
+ *
+ * @returns {JSX.Element} The HomePage component
+ */
 export default function HomePage() {
-  const productsPerPage = 20;
+  const productsPerPage = 20; // Number of products to display per page
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); // Array of products fetched from the API
   const [isLoading, setIsLoading] = useState(true); // For loading state
   const [hasError, setHasError] = useState(false); // For error state
   const [totalPages, setTotalPages] = useState(10); // Set a total number of pages (adjust as needed)
 
-  // Function to fetch products from the API
+  /**
+   * Fetches products from the API based on the current page.
+   *
+   * @param {number} page - The page number to fetch products for
+   */
   const fetchProducts = async (page) => {
     try {
       setIsLoading(true);
@@ -48,10 +60,16 @@ export default function HomePage() {
   }, [currentPage]);
 
   // Handlers for pagination
+  /**
+   * Moves to the next page, respecting the total number of pages.
+   */
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
+  /**
+   * Moves to the previous page, ensuring the page is greater than 1.
+   */
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
