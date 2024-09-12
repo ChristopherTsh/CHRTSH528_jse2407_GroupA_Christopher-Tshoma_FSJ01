@@ -1,3 +1,7 @@
+import Link from "next/link";
+import ProductImageGallery from "./ProductImageGallery";
+
+// Server component
 export default async function ProductPage({ params }) {
   let product = null;
   let error = null;
@@ -6,7 +10,6 @@ export default async function ProductPage({ params }) {
     // Fetch product data using the product ID
     const res = await fetch(`https://next-ecommerce-api.vercel.app/products/${params.id}`);
 
-    // If the fetch fails or the product does not exist, handle errors
     if (!res.ok) {
       throw new Error('Failed to fetch product');
     }
@@ -18,29 +21,37 @@ export default async function ProductPage({ params }) {
 
   // If there was an error, display it
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-red-500 text-center">Error: {error}</div>;
   }
 
   // If no product data was found, return a fallback UI
   if (!product) {
-    return <div>No product found.</div>;
+    return <div className="text-center text-gray-700">No product found.</div>;
   }
 
   return (
-    <div>
-      <h1>{product.title}</h1>
-      <p>{product.description}</p>
-      <img src={product.thumbnail} alt={product.title} />
-      {/* If the product has more images, show a gallery */}
-      {product.images && product.images.length > 1 && (
-        <div className="image-gallery">
-          {product.images.map((img, index) => (
-            <img key={index} src={img} alt={`Image ${index + 1}`} />
-          ))}
-        </div>
-      )}
-      <p>Price: ${product.price}</p>
-      <p>Category: {product.category}</p>
+    <div className="container mx-auto p-6">
+      {/* Back Button */}
+      <Link href="/products" legacyBehavior>
+        <a className="flex items-center text-blue-500 hover:text-blue-700 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Products
+        </a>
+      </Link>
+
+      {/* Product Information */}
+      <div className="bg-white shadow-md rounded-lg p-6">
+        <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
+        <p className="text-gray-600 mb-4">{product.description}</p>
+
+        {/* Product Image Gallery */}
+        <ProductImageGallery images={product.images} fallbackImage={product.thumbnail} />
+
+        <p className="text-xl font-semibold mt-6">Price: ${product.price}</p>
+        <p className="text-gray-600">Category: {product.category}</p>
+      </div>
     </div>
   );
 }
