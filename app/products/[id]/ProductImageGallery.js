@@ -3,7 +3,18 @@
 import { useState } from "react";
 
 export default function ProductDetail({ product }) {
-  const { images, thumbnail, title, price, discountPercentage, rating, category, stock, tags, reviews } = product;
+  const {
+    images,
+    thumbnail,
+    title,
+    price,
+    discountPercentage,
+    rating,
+    category,
+    stock,
+    tags,
+    reviews,
+  } = product;
   const [currentImage, setCurrentImage] = useState(images[0]);
 
   const handleError = (e) => {
@@ -11,15 +22,21 @@ export default function ProductDetail({ product }) {
   };
 
   // Calculate the discounted price if there is a discount
-  const discountedPrice = discountPercentage ? (price - (price * discountPercentage) / 100).toFixed(2) : price;
+  const discountedPrice = discountPercentage
+    ? (price - (price * discountPercentage) / 100).toFixed(2)
+    : price;
 
   return (
-    <div className="font-sans bg-gray-700">
+    <div className="font-sans bg-white text-black">
+      {" "}
+      {/* Changed to white background */}
       <div className="p-4 lg:max-w-7xl max-w-2xl max-lg:mx-auto">
         <div className="grid items-start grid-cols-1 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-3 w-full lg:sticky top-0 text-center">
             {/* Main Product Image */}
-            <div className="bg-gray-800 px-4 py-12 rounded-xl">
+            <div className="bg-gray-200 px-4 py-12 rounded-xl">
+              {" "}
+              {/* Updated to a lighter color for contrast */}
               <img
                 src={currentImage}
                 alt="Product"
@@ -34,7 +51,7 @@ export default function ProductDetail({ product }) {
                 {images.map((img, index) => (
                   <div
                     key={index}
-                    className="w-[90px] h-20 flex items-center justify-center bg-gray-800 rounded-xl p-4 cursor-pointer"
+                    className="w-[90px] h-20 flex items-center justify-center bg-gray-200 rounded-xl p-4 cursor-pointer"
                     onClick={() => setCurrentImage(img)}
                   >
                     <img
@@ -50,7 +67,7 @@ export default function ProductDetail({ product }) {
           </div>
 
           {/* Product Details Section */}
-          <div className="lg:col-span-2 text-white">
+          <div className="lg:col-span-2">
             <h2 className="text-3xl font-semibold">{title}</h2>
 
             {/* Rating Section */}
@@ -58,7 +75,11 @@ export default function ProductDetail({ product }) {
               {[...Array(5)].map((_, i) => (
                 <svg
                   key={i}
-                  className={`w-[18px] ${i < Math.round(rating) ? "fill-yellow-300" : "fill-[#CED5D8]"}`}
+                  className={`w-[18px] ${
+                    i < Math.round(rating)
+                      ? "fill-yellow-300"
+                      : "fill-[#CED5D8]"
+                  }`}
                   viewBox="0 0 14 13"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +87,9 @@ export default function ProductDetail({ product }) {
                   <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
                 </svg>
               ))}
-              <h4 className="text-white text-base ml-2">{rating.toFixed(2)} / 5</h4>
+              <h4 className="text-black text-base ml-2">
+                {rating.toFixed(2)} / 5
+              </h4>
             </div>
 
             {/* Pricing Section */}
@@ -74,20 +97,30 @@ export default function ProductDetail({ product }) {
               <p className="text-4xl font-semibold">${discountedPrice}</p>
               {discountPercentage && (
                 <p className="text-gray-400 text-base">
-                  <strike>${price}</strike> <span className="text-sm ml-1">({discountPercentage}% off)</span>
+                  <strike>${price}</strike>{" "}
+                  <span className="text-sm ml-1">
+                    ({discountPercentage}% off)
+                  </span>
                 </p>
               )}
             </div>
             <p className="text-gray-400 text-base mt-2">Tax included</p>
 
             {/* Stock & Availability */}
-            <p className={`mt-4 ${stock > 0 ? "text-green-400" : "text-red-400"}`}>
+            <p
+              className={`mt-4 ${
+                stock > 0 ? "text-green-400" : "text-red-400"
+              }`}
+            >
               {stock > 0 ? `In stock (${stock} available)` : "Out of stock"}
             </p>
 
             {/* Category & Tags */}
-            <p className="mt-4">Category: <span className="text-gray-400">{category}</span></p>
-            <p className="mt-2">Tags: 
+            <p className="mt-4">
+              Category: <span className="text-gray-400">{category}</span>
+            </p>
+            <p className="mt-2">
+              Tags:
               {tags.map((tag, index) => (
                 <span key={index} className="text-gray-400 ml-2">
                   #{tag}
@@ -114,7 +147,7 @@ export default function ProductDetail({ product }) {
             {/* Product Information */}
             <div className="mt-8">
               <h3 className="text-xl font-semibold">About the Product</h3>
-              <p className="mt-2 text-gray-300">{product.description}</p>
+              <p className="mt-2 text-gray-600">{product.description}</p>
             </div>
 
             {/* User Reviews */}
@@ -123,17 +156,28 @@ export default function ProductDetail({ product }) {
               {reviews.length > 0 ? (
                 <ul className="space-y-4 mt-4">
                   {reviews.map((review, index) => (
-                    <li key={index} className="bg-gray-800 p-4 rounded-lg">
+                    <li key={index} className="bg-gray-200 p-4 rounded-lg">
+                      {" "}
+                      {/* Updated for contrast */}
                       <div className="flex justify-between items-center">
-                        <h4 className="text-lg font-semibold">{review.name}</h4>
-                        <p className="text-sm text-gray-400">{new Date(review.date).toLocaleDateString()}</p>
+                        <h4 className="text-lg font-semibold">
+                          {review.reviewerName}
+                        </h4>{" "}
+                        {/* Accessed reviewerName */}
+                        <p className="text-sm text-gray-600">
+                          {new Date(review.date).toLocaleDateString()}
+                        </p>
                       </div>
-                      <p className="mt-2">{review.comment}</p>
+                      <p className="mt-2 text-gray-700">{review.comment}</p>
                       <div className="flex items-center mt-2">
                         {[...Array(5)].map((_, i) => (
                           <svg
                             key={i}
-                            className={`w-[16px] ${i < review.rating ? "fill-yellow-300" : "fill-[#CED5D8]"}`}
+                            className={`w-[16px] ${
+                              i < review.rating
+                                ? "fill-yellow-300"
+                                : "fill-[#CED5D8]"
+                            }`}
                             viewBox="0 0 14 13"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +190,7 @@ export default function ProductDetail({ product }) {
                   ))}
                 </ul>
               ) : (
-                <p className="text-gray-400 mt-4">No reviews yet.</p>
+                <p className="text-gray-600 mt-4">No reviews yet.</p>
               )}
             </div>
           </div>

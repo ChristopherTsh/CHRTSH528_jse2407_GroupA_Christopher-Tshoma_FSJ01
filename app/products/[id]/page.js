@@ -33,10 +33,7 @@ export default async function ProductPage({ params }) {
     <div className="container mx-auto p-6">
       {/* Back Button */}
       <Link href="/" legacyBehavior>
-        <a className="flex items-center text-blue-500 hover:text-blue-700 mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
+        <a className="min-w-[250px] px-4 py-2.5 border border-yellow-300 bg-transparent text-yellow-300 text-sm font-semibold rounded">
           Back to Products
         </a>
       </Link>
