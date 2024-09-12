@@ -1,5 +1,16 @@
 import Link from "next/link";
 
+/**
+ * ProductCard component displays a product with its image, title, price, and action buttons.
+ *
+ * @param {Object} props - The component props
+ * @param {Object} props.product - The product data
+ * @param {string} props.product.id - The unique identifier for the product
+ * @param {string} props.product.title - The title of the product
+ * @param {string} props.product.thumbnail - The URL of the product's thumbnail image
+ * @param {number} props.product.price - The price of the product
+ * @returns {JSX.Element} The ProductCard component
+ */
 export default function ProductCard({ product }) {
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
