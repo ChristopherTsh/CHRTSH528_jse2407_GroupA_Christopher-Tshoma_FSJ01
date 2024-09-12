@@ -1,42 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProductGrid({ products }) {
   const fallbackImage = 'https://via.placeholder.com/150'; // Fallback image in case an image fails to load
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
       {products.map((product) => (
-        <div key={product.id} className="border p-4">
+        <div
+          key={product.id}
+          className="border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+        >
           <ProductImageGallery images={product.images} fallbackImage={fallbackImage} />
-          <h3>{product.title}</h3>
-          <p>Category: {product.category}</p>
-          <p>Price: ${product.price}</p>
+          <div className="p-4">
+            <h3 className="text-lg font-semibold text-gray-800">{product.title}</h3>
+            <p className="text-sm text-gray-500">Category: {product.category}</p>
+            <p className="text-lg font-bold text-gray-800 mt-2">${product.price}</p>
 
-          {/* SVG Buttons */}
-          <div className="flex justify-around mt-4">
-            {/* Add to Cart Button */}
-            <button onClick={() => console.log('Added to cart:', product)}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 hover:text-green-700" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 3h2l3.6 7.59-1.35 2.44C7.07 13.84 7 14.16 7 14.5 7 15.33 7.67 16 8.5 16h9c.63 0 1.18-.39 1.41-.97l3.38-8.51C22.64 6.02 22.41 5 21.69 5H6.21l-.94-2H3zm5 13c-.83 0-1.5.67-1.5 1.5S7.17 19 8 19s1.5-.67 1.5-1.5S8.83 16 8 16zm7 0c-.83 0-1.5.67-1.5 1.5S14.17 19 15 19s1.5-.67 1.5-1.5S15.83 16 15 16z" />
-              </svg>
-            </button>
+            {/* Action Buttons */}
+            <div className="flex justify-around mt-4">
+              {/* Add to Cart Button */}
+              <button onClick={() => console.log('Added to cart:', product)}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 hover:text-green-700" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 3h2l3.6 7.59-1.35 2.44C7.07 13.84 7 14.16 7 14.5 7 15.33 7.67 16 8.5 16h9c.63 0 1.18-.39 1.41-.97l3.38-8.51C22.64 6.02 22.41 5 21.69 5H6.21l-.94-2H3zm5 13c-.83 0-1.5.67-1.5 1.5S7.17 19 8 19s1.5-.67 1.5-1.5S8.83 16 8 16zm7 0c-.83 0-1.5.67-1.5 1.5S14.17 19 15 19s1.5-.67 1.5-1.5S15.83 16 15 16z" />
+                </svg>
+              </button>
 
-            {/* Add to Wishlist Button */}
-            <button onClick={() => console.log('Added to wishlist:', product)}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500 hover:text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364l-1.318 1.318-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </button>
+              {/* Add to Wishlist Button */}
+              <button onClick={() => console.log('Added to wishlist:', product)}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500 hover:text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364l-1.318 1.318-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </button>
 
-            {/* View Product Button (Now navigates to product page) */}
-            <Link href={`/products/${product.id}`}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 hover:text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.243-4.243a5.657 5.657 0 00-8-8L3 7l2.707 2.707a1 1 0 001.414 0l5.657-5.657L15 10zM21 21a5.657 5.657 0 01-8-8l5.657-5.657 8 8L21 21z" />
-              </svg>
-            </Link>
+              {/* View Product Button */}
+              <Link href={`/products/${product.id}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 hover:text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.243-4.243a5.657 5.657 0 00-8-8L3 7l2.707 2.707a1 1 0 001.414 0l5.657-5.657L15 10zM21 21a5.657 5.657 0 01-8-8l5.657-5.657 8 8L21 21z" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       ))}
@@ -44,35 +49,84 @@ export default function ProductGrid({ products }) {
   );
 }
 
-// Separate component to handle the product image gallery
+// Product Image Gallery with Auto-Scroll and Hover Arrow Effect
 function ProductImageGallery({ images, fallbackImage }) {
-  const [currentImage, setCurrentImage] = useState(images[0]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+
+  let isThrottled = false;
+
+  const showPreviousImage = () => {
+    if (!isThrottled) {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      );
+      throttleClick();
+    }
+  };
+
+  const showNextImage = () => {
+    if (!isThrottled) {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+      throttleClick();
+    }
+  };
+
+  const throttleClick = () => {
+    isThrottled = true;
+    setTimeout(() => (isThrottled = false), 500); // Prevent clicking for 500ms
+  };
 
   const handleError = (e) => {
-    e.target.src = fallbackImage; // Replace broken image with fallback
+    e.target.src = fallbackImage;
   };
 
   return (
-    <div>
+    <div className="relative group">
+      {/* Main Image */}
       <img
-        src={currentImage}
+        src={images[currentImageIndex]}
         alt="Product"
-        onError={handleError} // Handle image loading errors
+        onError={handleError}
         className="w-full h-64 object-cover"
       />
+
+      {/* Left Arrow */}
       {images.length > 1 && (
-        <div className="flex justify-center space-x-2 mt-2">
-          {images.map((img, index) => (
-            <button key={index} onClick={() => setCurrentImage(img)}>
-              <img
-                src={img}
-                alt={`Thumbnail ${index + 1}`}
-                className="w-16 h-16 object-cover border"
-                onError={handleError}
-              />
-            </button>
-          ))}
-        </div>
+        <button
+          onClick={showPreviousImage}
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      )}
+
+      {/* Right Arrow */}
+      {images.length > 1 && (
+        <button
+          onClick={showNextImage}
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       )}
     </div>
   );
