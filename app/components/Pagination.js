@@ -1,3 +1,28 @@
+/**
+ * Pagination component for navigating through pages of content.
+ * It provides "Previous" and "Next" buttons and displays the current page
+ * along with the total number of pages. The buttons are disabled when the user
+ * is on the first or last page.
+ *
+ * @component
+ * @param {Object} props - Props for the Pagination component.
+ * @param {number} props.currentPage - The current active page.
+ * @param {Function} props.handleNextPage - Function to handle moving to the next page.
+ * @param {Function} props.handlePreviousPage - Function to handle moving to the previous page.
+ * @param {number} props.totalPages - Total number of available pages.
+ * 
+ * @example
+ * return (
+ *   <Pagination
+ *     currentPage={1}
+ *     handleNextPage={() => goToNextPage()}
+ *     handlePreviousPage={() => goToPreviousPage()}
+ *     totalPages={10}
+ *   />
+ * )
+ *
+ * @returns {JSX.Element} The Pagination component with navigation buttons and page display.
+ */
 "use client";
 
 export default function Pagination({
