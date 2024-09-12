@@ -1,8 +1,21 @@
-"use client";
-import React from "react";
-
+/**
+ * Loader component that displays a loading animation with rotating sections
+ * and spinning letters to simulate a loading state. It uses Tailwind CSS for
+ * styling.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Loader />
+ * )
+ *
+ * @returns {JSX.Element} The Loader component with rotating sections and letters.
+ */
 export default function Loader() {
+  // Array to create 45 sections for the animation
   const sections = Array.from({ length: 45 });
+
+  // Array of letters to display in the spinning animation
   const letters = ["G", "N", "I", "D", "A", "O", "L"];
 
   return (
