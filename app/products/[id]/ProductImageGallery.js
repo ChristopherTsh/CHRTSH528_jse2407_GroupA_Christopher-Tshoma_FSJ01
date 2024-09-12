@@ -2,6 +2,28 @@
 
 import { useState } from "react";
 
+/**
+ * Component to display product details including images, pricing, rating, and reviews.
+ * 
+ * @component
+ * @param {Object} props - Component properties
+ * @param {Object} props.product - The product object containing all details
+ * @param {string[]} props.product.images - Array of image URLs for the product
+ * @param {string} props.product.thumbnail - URL for the thumbnail image
+ * @param {string} props.product.title - Product title
+ * @param {number} props.product.price - Product price
+ * @param {number} [props.product.discountPercentage] - Discount percentage (optional)
+ * @param {number} props.product.rating - Product rating out of 5
+ * @param {string} props.product.category - Product category
+ * @param {number} props.product.stock - Number of items in stock
+ * @param {string[]} props.product.tags - Array of tags related to the product
+ * @param {Object[]} props.product.reviews - Array of reviews for the product
+ * @param {string} props.product.reviews[].reviewerName - Name of the reviewer
+ * @param {string} props.product.reviews[].comment - Reviewer's comment
+ * @param {number} props.product.reviews[].rating - Rating given by the reviewer out of 5
+ * @param {string} props.product.reviews[].date - Date of the review
+ * @returns {JSX.Element} ProductDetail component
+ */
 export default function ProductDetail({ product }) {
   const {
     images,
@@ -15,28 +37,33 @@ export default function ProductDetail({ product }) {
     tags,
     reviews,
   } = product;
+
+  // State to store the currently selected image for the gallery
   const [currentImage, setCurrentImage] = useState(images[0]);
 
+  /**
+   * Handles image load error by falling back to the thumbnail image.
+   * 
+   * @param {Object} e - The event object for the image load error
+   */
   const handleError = (e) => {
     e.target.src = thumbnail; // Fallback image if loading fails
   };
 
-  // Calculate the discounted price if there is a discount
+  // Calculate the discounted price if a discount is available
   const discountedPrice = discountPercentage
     ? (price - (price * discountPercentage) / 100).toFixed(2)
     : price;
 
   return (
     <div className="font-sans bg-white text-black">
-      {" "}
-      {/* Changed to white background */}
       <div className="p-4 lg:max-w-7xl max-w-2xl max-lg:mx-auto">
         <div className="grid items-start grid-cols-1 lg:grid-cols-5 gap-12">
+          
+          {/* Image Gallery Section */}
           <div className="lg:col-span-3 w-full lg:sticky top-0 text-center">
             {/* Main Product Image */}
             <div className="bg-gray-200 px-4 py-12 rounded-xl">
-              {" "}
-              {/* Updated to a lighter color for contrast */}
               <img
                 src={currentImage}
                 alt="Product"
@@ -157,13 +184,10 @@ export default function ProductDetail({ product }) {
                 <ul className="space-y-4 mt-4">
                   {reviews.map((review, index) => (
                     <li key={index} className="bg-gray-200 p-4 rounded-lg">
-                      {" "}
-                      {/* Updated for contrast */}
                       <div className="flex justify-between items-center">
                         <h4 className="text-lg font-semibold">
                           {review.reviewerName}
-                        </h4>{" "}
-                        {/* Accessed reviewerName */}
+                        </h4>
                         <p className="text-sm text-gray-600">
                           {new Date(review.date).toLocaleDateString()}
                         </p>
