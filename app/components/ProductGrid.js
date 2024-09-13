@@ -17,7 +17,7 @@ import { useState } from "react";
  * @returns {JSX.Element} The ProductGrid component
  */
 export default function ProductGrid({ products }) {
-  const fallbackImage = "https://via.placeholder.com/150"; // Fallback image in case an image fails to load
+  const fallbackImage = "https://via.placeholder.com/200"; // Fallback image in case an image fails to load
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
