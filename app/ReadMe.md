@@ -15,8 +15,8 @@ Welcome to the E-Commerce Product Listing and Detail Page project! This applicat
 
 # Installation
 [1]Clone the Repository
-git clone https://github.com/
-cd ecommerce-product-listing
+git clone https://github.com/ChristopherTsh/CHRTSH528_jse2407_GroupA_Christopher-Tshoma_FSJ01.git
+cd CHRTSH528_jse2407_GroupA_Christopher-Tshoma_FSJ01
 Install Dependencies
 
 [2]Install Dependencies
