@@ -168,7 +168,7 @@ function ProductImageGallery({ images, fallbackImage }) {
         src={images[currentImageIndex]}
         alt="Product"
         onError={handleError}
-        className="w-full h-64 object-cover"
+        className="w-full h-64 object-contain"
       />
 
       {/* Left Arrow */}
