@@ -19,6 +19,7 @@ export default function HomePage() {
   const productsPerPage = 20; // Number of products to display per page
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const [products, setProducts] = useState([]); // Array of products fetched from the API
+  const [filteredProducts, setFilteredProducts] = useState([]); // Array for storing filtered products (search results)
   const [isLoading, setIsLoading] = useState(true); // For loading state
   const [hasError, setHasError] = useState(false); // For error state
   const [totalPages, setTotalPages] = useState(10); // Set a total number of pages (adjust as needed)
@@ -43,9 +44,8 @@ export default function HomePage() {
       }
 
       const data = await res.json();
-      setProducts(data);
-      // Optionally, set total pages based on data from the API
-      // setTotalPages(data.totalPages || 10);
+      setProducts(data); // Store the fetched products
+      setFilteredProducts(data); // Set initial filtered products to match all fetched products
     } catch (error) {
       console.error("Error fetching products:", error);
       setHasError(true); // Set error state if something goes wrong
@@ -76,6 +76,22 @@ export default function HomePage() {
     }
   };
 
+  /**
+   * Filters products by their title based on the search term.
+   *
+   * @param {string} searchTerm - The search term entered by the user.
+   */
+  const searchProducts = (searchTerm) => {
+    if (searchTerm.trim() === "") {
+      setFilteredProducts(products); // If search is cleared, reset to all products
+    } else {
+      const filtered = products.filter((product) =>
+        product.category.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered); // Update the list with filtered products
+    }
+  };
+
   // Conditionally render content
   if (hasError) {
     return <Custom404 />; // Render the 404 page if there's an error
@@ -83,9 +99,13 @@ export default function HomePage() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar searchProducts={searchProducts} />
 
-      {isLoading ? <Loader /> : <ProductGrid products={products} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ProductGrid products={filteredProducts} /> // Use filtered products for display
+      )}
 
       {/* Use Pagination Component */}
       <Pagination

@@ -6,9 +6,10 @@
  * @component
  * @example
  * return (
- *   <Navbar />
+ *   <Navbar searchProducts={searchProductsFunction} />
  * )
  *
+ * @param {function} searchProducts - Function to handle product search by title.
  * @returns {JSX.Element} The navigation bar with toggleable mobile menu, search bar, and links.
  */
 "use client";
@@ -16,8 +17,20 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ searchProducts }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  /**
+   * Handles the search functionality by invoking the searchProducts function
+   * with the current search term as input.
+   *
+   * @param {Event} e - The form submission event.
+   */
+  const handleSearch = (e) => {
+    e.preventDefault();
+    searchProducts(searchTerm); // Triggers the search
+  };
 
   /**
    * Toggles the state of the mobile menu between open and closed.
@@ -48,7 +61,10 @@ export default function Navbar() {
         </div>
 
         {/* Search Bar */}
-        <div className="bg-gray-100 flex border-2 rounded max-md:order-1 border-transparent focus-within:border-blue-500 focus-within:bg-transparent px-4 h-11 lg:w-2/4 max-md:w-full">
+        <form
+          onSubmit={handleSearch} // Use form tag for submission
+          className="bg-gray-100 flex border-2 rounded max-md:order-1 border-transparent focus-within:border-blue-500 focus-within:bg-transparent px-4 h-11 lg:w-2/4 max-md:w-full"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 192.904 192.904"
@@ -57,15 +73,21 @@ export default function Navbar() {
           >
             <path d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z"></path>
           </svg>
+
           <input
             type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search products..."
             className="w-full outline-none bg-transparent text-[#333] text-sm"
           />
-          <button className="min-w-[150px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black text-sm font-semibold rounded">
+          <button
+            type="submit"
+            className="min-w-[150px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black text-sm font-semibold rounded"
+          >
             Search
           </button>
-        </div>
+        </form>
 
         {/* Cart, Wishlist, and User Menu */}
         <div className="flex items-center space-x-8 max-md:ml-auto">
@@ -84,9 +106,9 @@ export default function Navbar() {
               xmlns="http://www.w3.org/2000/svg"
               width="20px"
               className="cursor-pointer fill-[#333] hover:fill-[#077bff]"
-              viewBox="0 0 371.263 371.263"
+              viewBox="0 0 24 24"
             >
-              <path d="M305.402 234.794v-70.54c0-52.396-33.533-98.085-79.702-115.151.539-2.695.838-5.449.838-8.204C226.539 18.324 208.215 0 185.64 0s-40.899 18.324-40.899 40.899c0 2.695.299 5.389.778 7.964-15.868 5.629-30.539 14.551-43.054 26.647-23.593 22.755-36.819 53.506-36.819 86.74v70.677C30.783 242.437 15 260.748 15 282.435v58.826c0 16.47 13.391 29.862 29.862 29.862h281.538c16.47 0 29.862-13.391 29.862-29.862v-58.826c0-21.687-15.783-39.998-35.86-47.641zM170.649 40.899c0-8.265 6.726-14.99 14.991-14.99 8.265 0 14.991 6.726 14.991 14.99 0 8.266-6.726 14.991-14.991 14.991-8.265 0-14.991-6.726-14.991-14.991zm154.745 300.362c0 2.687-2.19 4.877-4.878 4.877H38.979a4.88 4.88 0 0 1-4.878-4.877v-58.826c0-9.292 6.049-17.187 14.57-20.118a15.005 15.005 0 0 0 10.471-14.224v-77.992c0-28.214 11.257-54.717 31.715-74.116 11.845-11.432 25.926-19.906 41.223-24.674a92.644 92.644 0 0 1 46.207-2.534c.83.168 1.673.309 2.525.407 1.826.263 3.663.41 5.507.41 8.458 0 16.625-1.637 24.422-4.761 1.563-.653 3.191-1.258 4.79-1.807 41.108-14.145 86.2 7.826 100.042 48.934a92.313 92.313 0 0 1 5.505 31.785v72.55c0 6.452 4.129 12.165 10.29 14.236 9.062 3.086 15.348 11.607 15.348 21.495v58.826z"></path>
+              <path d="M12 4.748l-.717-.737C5.6-1.283 0 1.528 0 7.275 0 10.065 1.664 13.1 5.022 16.07c1.33 1.204 2.794 2.355 4.399 3.6l.01.007c.15.111.31.233.484.366.37.268.75.53 1.137.788.171-.118.336-.23.489-.334l.004-.003c1.605-1.245 3.069-2.396 4.399-3.6C22.336 13.1 24 10.065 24 7.275c0-5.747-5.6-8.558-11.283-4.26L12 4.748zM12 20.05c-.075-.051-.2-.137-.364-.251a53.642 53.642 0 0 1-.969-.686c-1.574-1.215-3.017-2.33-4.316-3.473C2.837 13.31 1.5 10.787 1.5 7.275c0-4.288 4.645-6.708 9.188-2.132L12 6.315l1.312-1.172c4.543-4.576 9.188-2.156 9.188 2.132 0 3.512-1.337 6.035-4.851 8.365-1.299 1.142-2.742 2.258-4.316 3.473a52.586 52.586 0 0 1-1.334.937c-.165.114-.289.2-.364.251z"></path>
             </svg>
           </Link>
           <Link href="/profile">
@@ -103,28 +125,22 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <nav className="bg-gray-200 lg:hidden py-4 w-full space-y-2">
-          <Link
-            href="/"
-            className="block text-sm px-6 py-2 text-gray-600 hover:bg-gray-100"
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="block text-sm px-6 py-2 text-gray-600 hover:bg-gray-100"
-          >
-            About Us
-          </Link>
-          <Link
-            href="/shop"
-            className="block text-sm px-6 py-2 text-gray-600 hover:bg-gray-100"
-          >
-            Shop
-          </Link>
-        </nav>
-      )}
+      <nav
+        className={`lg:hidden py-4 ${menuOpen ? "block" : "hidden"}`}
+        aria-label="Mobile Navigation"
+      >
+        <ul className="flex flex-col space-y-6">
+          <li>
+            <Link href="/cart">Cart</Link>
+          </li>
+          <li>
+            <Link href="/wishlist">Wishlist</Link>
+          </li>
+          <li>
+            <Link href="/profile">My Profile</Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }
