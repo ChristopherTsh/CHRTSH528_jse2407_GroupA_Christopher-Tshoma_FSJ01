@@ -22,7 +22,7 @@ export default function Footer() {
           </li>
           <li>
             <a href="#" className="text-[15px] hover:text-white">
-              Privacy Policy
+              Privacy Policy.
             </a>
           </li>
           <li>
